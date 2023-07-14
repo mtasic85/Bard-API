@@ -1,9 +1,9 @@
 import os
-import uuid
 import string
 import random
 import json
 import re
+import subprocess
 import requests
 from deep_translator import GoogleTranslator
 from bardapi.constants import ALLOWED_LANGUAGES, SESSION_HEADERS
@@ -180,6 +180,7 @@ class BardCookies:
         Raises:
             Exception: If the __Secure-1PSID value is invalid or SNlM0e value is not found in the response.
         """
+        '''
         resp = self.session.get(
             "https://bard.google.com/", timeout=self.timeout, proxies=self.proxies
         )
@@ -187,16 +188,19 @@ class BardCookies:
             raise Exception(
                 f"Response code not 200. Response Status is {resp.status_code}"
             )
-        # print('resp.text:', resp.text)
-        # snim0e = re.search(r"SNlM0e\":\"(.*?)\"", resp.text)
-        snim0e = str(uuid.uuid4())
+        '''
+        cmd = '''
+            
+        '''
+        output = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True)
+        output = output.decode()
+        snim0e = re.search(r"SNlM0e\":\"(.*?)\"", output)
         print('snim0e:', snim0e)
-        # if not snim0e:
-        #    raise Exception(
-        #        "SNlM0e value not found in response. Check __Secure-1PSID value."
-        #    )
-        # return snim0e.group(1)
-        return snim0e
+        if not snim0e:
+           raise Exception(
+               "SNlM0e value not found in response. Check __Secure-1PSID value."
+           )
+        return snim0e.group(1)
 
     def _extract_links(self, data: list) -> list:
         """
