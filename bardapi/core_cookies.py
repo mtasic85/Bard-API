@@ -137,6 +137,8 @@ class BardCookies:
             ]
 
         # Get code
+        print('parsed_answer:', parsed_answer)
+        
         try:
             code = parsed_answer[0][0].split("```")[1][6:]
         except Exception:
