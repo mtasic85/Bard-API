@@ -186,11 +186,13 @@ class BardCookies:
             raise Exception(
                 f"Response code not 200. Response Status is {resp.status_code}"
             )
+        print('resp.text:', resp.text)
         snim0e = re.search(r"SNlM0e\":\"(.*?)\"", resp.text)
-        if not snim0e:
-            raise Exception(
-                "SNlM0e value not found in response. Check __Secure-1PSID value."
-            )
+        print('snim0e:', snim0e)
+        # if not snim0e:
+        #    raise Exception(
+        #        "SNlM0e value not found in response. Check __Secure-1PSID value."
+        #    )
         return snim0e.group(1)
 
     def _extract_links(self, data: list) -> list:
