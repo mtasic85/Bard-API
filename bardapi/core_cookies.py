@@ -182,7 +182,6 @@ class BardCookies:
         Raises:
             Exception: If the __Secure-1PSID value is invalid or SNlM0e value is not found in the response.
         """
-        '''
         resp = self.session.get(
             "https://bard.google.com/", timeout=self.timeout, proxies=self.proxies
         )
@@ -190,13 +189,17 @@ class BardCookies:
             raise Exception(
                 f"Response code not 200. Response Status is {resp.status_code}"
             )
-        '''
+        snim0e = re.search(r"SNlM0e\":\"(.*?)\"", resp.text)
+        
+        """
         cmd = '''
             
         '''
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True)
         output = output.decode()
         snim0e = re.search(r"SNlM0e\":\"(.*?)\"", output)
+        """
+        
         print('snim0e:', snim0e)
         if not snim0e:
            raise Exception(
