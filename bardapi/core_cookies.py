@@ -186,7 +186,7 @@ class BardCookies:
             raise Exception(
                 f"Response code not 200. Response Status is {resp.status_code}"
             )
-        print('resp.text:', resp.text)
+        # print('resp.text:', resp.text)
         snim0e = re.search(r"SNlM0e\":\"(.*?)\"", resp.text)
         print('snim0e:', snim0e)
         # if not snim0e:
